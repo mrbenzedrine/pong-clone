@@ -6,6 +6,8 @@ have been made to create the code below
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#include "paddle.h"
+
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
@@ -98,6 +100,9 @@ int main()
 			//Event handler
 			SDL_Event e;
 
+            Paddle player1(10, SDLK_w, SDLK_s, SCREEN_HEIGHT);
+            Paddle player2(SCREEN_WIDTH - 10 - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
+
 			//While application is running
 			while( !quit )
 			{
@@ -110,11 +115,20 @@ int main()
 						quit = true;
 					}
 
+                    player1.handleEvent(e);
+                    player2.handleEvent(e);
+
 				}
+
+                player1.move(SCREEN_HEIGHT);
+                player2.move(SCREEN_HEIGHT);
 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
 				SDL_RenderClear( gRenderer );
+
+                player1.render(gRenderer);
+                player2.render(gRenderer);
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
