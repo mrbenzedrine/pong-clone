@@ -15,6 +15,8 @@ Paddle::Paddle(int x, SDL_Keycode up, SDL_Keycode down, int screen_height)
     posX = x;
     posY = screen_height/2 - PADDLE_HEIGHT/2;
 
+    paddleBox = {posX, posY, PADDLE_WIDTH, PADDLE_HEIGHT};
+
 }
 
 void Paddle::handleEvent(SDL_Event& e)
@@ -59,13 +61,14 @@ void Paddle:: move(int screen_height)
         posY -= velY;
     }
 
+    paddleBox.y = posY;
+
 }
 
 void Paddle::render(SDL_Renderer* renderer)
 {
 
-    SDL_Rect paddle = {posX, posY, PADDLE_WIDTH, PADDLE_HEIGHT};
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    SDL_RenderFillRect(renderer, &paddle);
+    SDL_RenderFillRect(renderer, &paddleBox);
 
 }

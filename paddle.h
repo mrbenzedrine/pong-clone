@@ -22,6 +22,7 @@ class Paddle
         int posX, posY;
         int velY;
 
+        SDL_Rect paddleBox;
         SDL_Keycode up_key, down_key;
 
 };
