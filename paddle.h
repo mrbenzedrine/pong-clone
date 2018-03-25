@@ -17,6 +17,7 @@ class Paddle
         void handleEvent(SDL_Event& e);
         void move(int screen_height);
         void render(SDL_Renderer* renderer);
+        SDL_Rect getCollisionBox() const {return paddleBox;};
 
     private:
         int posX, posY;
