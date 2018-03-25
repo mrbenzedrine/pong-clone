@@ -11,6 +11,7 @@ class Ball
 
         void move(int screen_width, int screen_height);
         void render(SDL_Renderer* renderer);
+        bool checkCollision(SDL_Rect player1, SDL_Rect player2);
 
     private:
         int posX, posY;

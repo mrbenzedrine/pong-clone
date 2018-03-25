@@ -50,3 +50,78 @@ void Ball::render(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &ballBox);
 
 }
+
+bool Ball::checkCollision(SDL_Rect player1, SDL_Rect player2)
+{
+
+    int xAxisProjectionLeftP1, xAxisProjectionLeftP2;
+    int xAxisProjectionRightP1, xAxisProjectionRightP2;
+    int yAxisProjectionTopP1, yAxisProjectionTopP2;
+    int yAxisProjectionBottomP1, yAxisProjectionBottomP2;
+    int xAxisProjectionLeftBall, xAxisProjectionRightBall;
+    int yAxisProjectionTopBall, yAxisProjectionBottomBall;
+
+    bool hasCollidedWithP1 = true;
+    bool hasCollidedWithP2 = true;
+
+    xAxisProjectionLeftP1 = player1.x;
+    xAxisProjectionRightP1 = player1.x + player1.w;
+    yAxisProjectionTopP1 = player1.y;
+    yAxisProjectionBottomP1 = player1.y + player1.h;
+
+    xAxisProjectionLeftP2 = player2.x;
+    xAxisProjectionRightP2 = player2.x + player2.w;
+    yAxisProjectionTopP2 = player2.y;
+    yAxisProjectionBottomP2 = player2.y + player2.h;
+
+    xAxisProjectionLeftBall = posX;
+    xAxisProjectionRightBall = posX + BALL_WIDTH;
+    yAxisProjectionTopBall = posY;
+    yAxisProjectionBottomBall = posY +BALL_HEIGHT;
+
+    // Check if the projections of either Paddle overlaps with
+    // the projections of the Ball
+
+    if(xAxisProjectionRightP1 <= xAxisProjectionLeftBall)
+    {
+        hasCollidedWithP1 = false;
+    }
+
+    if(xAxisProjectionLeftP1 >= xAxisProjectionRightBall)
+    {
+        hasCollidedWithP1 = false;
+    }
+
+    if(yAxisProjectionTopP1 >= yAxisProjectionBottomBall)
+    {
+        hasCollidedWithP1 = false;
+    }
+
+    if(yAxisProjectionBottomP1 <= yAxisProjectionTopBall)
+    {
+        hasCollidedWithP1 = false;
+    }
+
+    if(xAxisProjectionRightP2 <= xAxisProjectionLeftBall)
+    {
+        hasCollidedWithP2 = false;
+    }
+
+    if(xAxisProjectionLeftP2 >= xAxisProjectionRightBall)
+    {
+        hasCollidedWithP2 = false;
+    }
+
+    if(yAxisProjectionTopP2 >= yAxisProjectionBottomBall)
+    {
+        hasCollidedWithP2 = false;
+    }
+
+    if(yAxisProjectionBottomP2 <= yAxisProjectionTopBall)
+    {
+        hasCollidedWithP2 = false;
+    }
+
+    return hasCollidedWithP1 || hasCollidedWithP2;
+
+}
