@@ -11,7 +11,7 @@ Ball::Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_wi
 
 }
 
-void Ball::move(int screen_width, int screen_height)
+void Ball::move(int screen_width, int screen_height, SDL_Rect player1, SDL_Rect player2)
 {
 
     posX += velX;
@@ -35,6 +35,15 @@ void Ball::move(int screen_width, int screen_height)
 
         posY -= velY;
         velY *= -1;
+    }
+
+    // Check if the collective movements in this frame have
+    // caused a collision with a Paddle
+    if(checkCollision(player1, player2))
+    {
+        posX -= velX;
+        posY -= velY;
+        velX *= -1;
     }
 
     // Update ballBox

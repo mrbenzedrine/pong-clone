@@ -9,7 +9,7 @@ class Ball
 
         Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_width, int screen_height);
 
-        void move(int screen_width, int screen_height);
+        void move(int screen_width, int screen_height, SDL_Rect player1, SDL_Rect player2);
         void render(SDL_Renderer* renderer);
         bool checkCollision(SDL_Rect player1, SDL_Rect player2);
 
