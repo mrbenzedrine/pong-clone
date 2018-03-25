@@ -15,5 +15,6 @@ class Ball
     private:
         int posX, posY;
         int velX, velY;
+        SDL_Rect ballBox;
 
 };

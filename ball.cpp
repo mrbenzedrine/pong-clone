@@ -7,6 +7,7 @@ Ball::Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_wi
     posY = initPosY;
     velX = initVelX;
     velY = initVelY;
+    ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
 
 }
 
@@ -36,13 +37,16 @@ void Ball::move(int screen_width, int screen_height)
         velY *= -1;
     }
 
+    // Update ballBox
+    ballBox.x = posX;
+    ballBox.y = posY;
+
 }
 
 void Ball::render(SDL_Renderer* renderer)
 {
 
-    SDL_Rect ball = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    SDL_RenderFillRect(renderer, &ball);
+    SDL_RenderFillRect(renderer, &ballBox);
 
 }
