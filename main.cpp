@@ -7,6 +7,7 @@ have been made to create the code below
 #include <SDL2/SDL.h>
 
 #include "paddle.h"
+#include "ball.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -103,6 +104,8 @@ int main()
             Paddle player1(10, SDLK_w, SDLK_s, SCREEN_HEIGHT);
             Paddle player2(SCREEN_WIDTH - 10 - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
+            Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 			//While application is running
 			while( !quit )
 			{
@@ -123,12 +126,16 @@ int main()
                 player1.move(SCREEN_HEIGHT);
                 player2.move(SCREEN_HEIGHT);
 
+                ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox(), player2.getCollisionBox());
+
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
 				SDL_RenderClear( gRenderer );
 
                 player1.render(gRenderer);
                 player2.render(gRenderer);
+
+                ball.render(gRenderer);
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
