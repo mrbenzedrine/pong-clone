@@ -15,6 +15,7 @@ const int SCREEN_HEIGHT = 480;
 bool init();
 void close();
 bool loadMedia();
+void drawCentreLine();
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
@@ -79,6 +80,24 @@ bool loadMedia()
 	return success;
 }
 
+void drawCentreLine()
+{
+
+    int line_height = 7;
+    int line_width = 2;
+    int gap_between_lines = 4;
+    SDL_Rect centreLine = {SCREEN_WIDTH / 2, 0, line_width, line_height};
+
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+    for(int line_counter = 0; line_counter * (line_height + gap_between_lines) <  SCREEN_HEIGHT; line_counter++)
+    {
+        centreLine.y = line_counter * (line_height + gap_between_lines);
+        SDL_RenderFillRect(gRenderer, &centreLine);
+    }
+
+}
+
 int main()
 {
 	//Start up SDL and create window
@@ -131,6 +150,8 @@ int main()
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
 				SDL_RenderClear( gRenderer );
+
+                drawCentreLine();
 
                 player1.render(gRenderer);
                 player2.render(gRenderer);
