@@ -8,6 +8,7 @@ Ball::Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_wi
     velX = initVelX;
     velY = initVelY;
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
+    isBallInPlay = true;
 
 }
 
@@ -18,11 +19,11 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player1, SDL_Rect 
 
     if(posX < 0)
     {
-        // player2 scores a point
+        isBallInPlay = false;
     }
     else if(posX > screen_width - BALL_WIDTH)
     {
-        // player1 scores a point
+        isBallInPlay = false;
     }
 
     posY += velY;
@@ -132,5 +133,22 @@ bool Ball::checkCollision(SDL_Rect player1, SDL_Rect player2)
     }
 
     return hasCollidedWithP1 || hasCollidedWithP2;
+
+}
+
+void Ball::reset(int screen_width, int screen_height)
+{
+
+    int starting_height = screen_height/2;
+    int init_x_vel = 1;
+    int init_y_vel = 1;
+
+    posX = screen_width/2;
+    posY = starting_height;
+
+    velX = init_x_vel;
+    velY = init_y_vel;
+
+    isBallInPlay = true;
 
 }

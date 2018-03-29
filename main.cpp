@@ -125,31 +125,39 @@ int main()
 
             Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+            bool hasPointBeenWon = false;
+
 			//While application is running
 			while( !quit )
 			{
-				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
-					//User requests quit
-					if( e.type == SDL_QUIT )
-					{
-						quit = true;
-					}
+
+                //Handle events on queue
+                while( SDL_PollEvent( &e ) != 0 )
+                {
+                    //User requests quit
+                    if( e.type == SDL_QUIT )
+                    {
+                        quit = true;
+                    }
 
                     player1.handleEvent(e);
                     player2.handleEvent(e);
 
-				}
+                }
 
                 player1.move(SCREEN_HEIGHT);
                 player2.move(SCREEN_HEIGHT);
 
                 ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox(), player2.getCollisionBox());
 
-				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
-				SDL_RenderClear( gRenderer );
+                if(!ball.isBallInPlay)
+                {
+                    hasPointBeenWon = true;
+                }
+
+                //Clear screen
+                SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
+                SDL_RenderClear( gRenderer );
 
                 drawCentreLine();
 
@@ -158,8 +166,21 @@ int main()
 
                 ball.render(gRenderer);
 
-				//Update screen
-				SDL_RenderPresent( gRenderer );
+                //Update screen
+                SDL_RenderPresent( gRenderer );
+
+                if(hasPointBeenWon)
+                {
+
+                    // Reset the ball
+                    ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+                    // Reset hasPointBeenWon
+                    hasPointBeenWon = false;
+
+
+                }
+
 			}
 		}
 	}
