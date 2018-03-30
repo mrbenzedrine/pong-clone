@@ -12,7 +12,7 @@ Ball::Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_wi
 
 }
 
-void Ball::move(int screen_width, int screen_height, SDL_Rect player1, SDL_Rect player2)
+void Ball::move(int screen_width, int screen_height, SDL_Rect player)
 {
 
     posX += velX;
@@ -39,8 +39,9 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player1, SDL_Rect 
     }
 
     // Check if the collective movements in this frame have
-    // caused a collision with a Paddle
-    if(checkCollision(player1, player2))
+    // caused a collision with the Paddle in the same half
+    // of the screen as the Ball
+    if(checkCollision(player))
     {
         posX -= velX;
         posY -= velY;
@@ -61,78 +62,45 @@ void Ball::render(SDL_Renderer* renderer)
 
 }
 
-bool Ball::checkCollision(SDL_Rect player1, SDL_Rect player2)
+bool Ball::checkCollision(SDL_Rect player)
 {
 
-    int xAxisProjectionLeftP1, xAxisProjectionLeftP2;
-    int xAxisProjectionRightP1, xAxisProjectionRightP2;
-    int yAxisProjectionTopP1, yAxisProjectionTopP2;
-    int yAxisProjectionBottomP1, yAxisProjectionBottomP2;
+    int xAxisProjectionLeftPlayer, xAxisProjectionRightPlayer;
+    int yAxisProjectionTopPlayer, yAxisProjectionBottomPlayer;
     int xAxisProjectionLeftBall, xAxisProjectionRightBall;
     int yAxisProjectionTopBall, yAxisProjectionBottomBall;
 
-    bool hasCollidedWithP1 = true;
-    bool hasCollidedWithP2 = true;
-
-    xAxisProjectionLeftP1 = player1.x;
-    xAxisProjectionRightP1 = player1.x + player1.w;
-    yAxisProjectionTopP1 = player1.y;
-    yAxisProjectionBottomP1 = player1.y + player1.h;
-
-    xAxisProjectionLeftP2 = player2.x;
-    xAxisProjectionRightP2 = player2.x + player2.w;
-    yAxisProjectionTopP2 = player2.y;
-    yAxisProjectionBottomP2 = player2.y + player2.h;
+    xAxisProjectionLeftPlayer = player.x;
+    xAxisProjectionRightPlayer = player.x + player.w;
+    yAxisProjectionTopPlayer = player.y;
+    yAxisProjectionBottomPlayer = player.y + player.h;
 
     xAxisProjectionLeftBall = posX;
     xAxisProjectionRightBall = posX + BALL_WIDTH;
     yAxisProjectionTopBall = posY;
     yAxisProjectionBottomBall = posY +BALL_HEIGHT;
 
-    // Check if the projections of either Paddle overlaps with
+    // Check if the projections of the player's Paddle overlaps with
     // the projections of the Ball
 
-    if(xAxisProjectionRightP1 <= xAxisProjectionLeftBall)
+    if(xAxisProjectionRightPlayer <= xAxisProjectionLeftBall)
     {
-        hasCollidedWithP1 = false;
+        return false;
+    }
+    else if(xAxisProjectionLeftPlayer >= xAxisProjectionRightBall)
+    {
+        return false;
+    }
+    else if(yAxisProjectionTopPlayer >= yAxisProjectionBottomBall)
+    {
+        return false;
+    }
+    else if(yAxisProjectionBottomPlayer <= yAxisProjectionTopBall)
+    {
+        return false;
     }
 
-    if(xAxisProjectionLeftP1 >= xAxisProjectionRightBall)
-    {
-        hasCollidedWithP1 = false;
-    }
-
-    if(yAxisProjectionTopP1 >= yAxisProjectionBottomBall)
-    {
-        hasCollidedWithP1 = false;
-    }
-
-    if(yAxisProjectionBottomP1 <= yAxisProjectionTopBall)
-    {
-        hasCollidedWithP1 = false;
-    }
-
-    if(xAxisProjectionRightP2 <= xAxisProjectionLeftBall)
-    {
-        hasCollidedWithP2 = false;
-    }
-
-    if(xAxisProjectionLeftP2 >= xAxisProjectionRightBall)
-    {
-        hasCollidedWithP2 = false;
-    }
-
-    if(yAxisProjectionTopP2 >= yAxisProjectionBottomBall)
-    {
-        hasCollidedWithP2 = false;
-    }
-
-    if(yAxisProjectionBottomP2 <= yAxisProjectionTopBall)
-    {
-        hasCollidedWithP2 = false;
-    }
-
-    return hasCollidedWithP1 || hasCollidedWithP2;
+    return true;
 
 }
 

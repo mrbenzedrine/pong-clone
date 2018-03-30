@@ -148,7 +148,14 @@ int main()
                 player1.move(SCREEN_HEIGHT);
                 player2.move(SCREEN_HEIGHT);
 
-                ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox(), player2.getCollisionBox());
+                if(ball.getPosX() < SCREEN_WIDTH/2)
+                {
+                    ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox());
+                }
+                else
+                {
+                    ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player2.getCollisionBox());
+                }
 
                 if(!ball.isBallInPlay)
                 {
