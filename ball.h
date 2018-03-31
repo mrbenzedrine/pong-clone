@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <cmath>
 
 class Ball
 {
@@ -9,17 +10,18 @@ class Ball
 
         bool isBallInPlay;
 
-        Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_width, int screen_height);
+        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height);
 
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
         bool checkCollision(SDL_Rect player);
         void reset(int screen_width, int screen_height);
-        int getPosX() const {return posX;};
+        void calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect);
+        float getPosX() const {return posX;};
 
     private:
-        int posX, posY;
-        int velX, velY;
+        float posX, posY;
+        float velX, velY;
         SDL_Rect ballBox;
 
 };

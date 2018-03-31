@@ -1,6 +1,6 @@
 #include "ball.h"
 
-Ball::Ball(int initPosX, int initPosY, int initVelX, int initVelY, int screen_width, int screen_height)
+Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height)
 {
 
     posX = initPosX;
@@ -45,7 +45,8 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
     {
         posX -= velX;
         posY -= velY;
-        velX *= -1;
+
+        calculateVelocityAfterPaddleCollision(screen_width, player);
     }
 
     // Update ballBox
@@ -67,8 +68,8 @@ bool Ball::checkCollision(SDL_Rect player)
 
     int xAxisProjectionLeftPlayer, xAxisProjectionRightPlayer;
     int yAxisProjectionTopPlayer, yAxisProjectionBottomPlayer;
-    int xAxisProjectionLeftBall, xAxisProjectionRightBall;
-    int yAxisProjectionTopBall, yAxisProjectionBottomBall;
+    float xAxisProjectionLeftBall, xAxisProjectionRightBall;
+    float yAxisProjectionTopBall, yAxisProjectionBottomBall;
 
     xAxisProjectionLeftPlayer = player.x;
     xAxisProjectionRightPlayer = player.x + player.w;
@@ -108,8 +109,8 @@ void Ball::reset(int screen_width, int screen_height)
 {
 
     int starting_height = screen_height/2;
-    int init_x_vel = 1;
-    int init_y_vel = 1;
+    float init_x_vel = 1;
+    float init_y_vel = 1;
 
     posX = screen_width/2;
     posY = starting_height;
@@ -118,5 +119,51 @@ void Ball::reset(int screen_width, int screen_height)
     velY = init_y_vel;
 
     isBallInPlay = true;
+
+}
+
+void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect player)
+{
+
+    float collision_y_coord;
+    float bounce_angle;
+
+    // Get the y coord of the point on the Paddle where
+    // the Ball collided with it
+
+    collision_y_coord = posY - player.y;
+
+    // Start with a simple formula for the bounce angle:
+    // at the centre of the Paddle the bounce angle will be
+    // 90 degress relative to the Paddle, and for every
+    // pixel up/down from the centre the angle will
+    // decrease by 4 degrees
+
+    if(collision_y_coord < player.h/2)
+    {
+        bounce_angle = (M_PI/180) * (90 - 4 * (player.h/2 - collision_y_coord));
+
+        // Sign of y velocity will be negative
+        velY = -cos(bounce_angle);
+
+    }
+    else
+    {
+        bounce_angle = (M_PI/180) * (90 - 4 * (collision_y_coord - player.h/2));
+
+        // Sign of y velocity will be positive
+        velY = cos(bounce_angle);
+    }
+
+    if(posX < screen_width/2)
+    {
+        // x velocity should be positive after collision
+        velX = sin(bounce_angle);
+    }
+    else
+    {
+        // x velocity should be negative after collision
+        velX = -sin(bounce_angle);
+    }
 
 }
