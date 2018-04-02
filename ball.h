@@ -15,7 +15,7 @@ class Ball
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
         bool checkCollision(SDL_Rect player);
-        void reset(int screen_width, int screen_height);
+        void reset(int screen_width, int screen_height, int x_vel_sign_multiplier);
         void calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect);
         float getPosX() const {return posX;};
 

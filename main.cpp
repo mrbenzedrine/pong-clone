@@ -192,8 +192,14 @@ int main()
 
                 if(hasBreakTimerStarted && (SDL_GetTicks() - timeOfPointWin > 2000))
                 {
-                    // Reset the ball
-                    ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT);
+                    if(ball.getPosX() < 0)
+                    {
+                        ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, -1);
+                    }
+                    else
+                    {
+                        ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+                    }
 
                     // Reset hasPointBeenWon and hasBreakTimerStarted
                     hasPointBeenWon = false;

@@ -105,7 +105,7 @@ bool Ball::checkCollision(SDL_Rect player)
 
 }
 
-void Ball::reset(int screen_width, int screen_height)
+void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
 {
 
     int starting_height = screen_height/2;
@@ -115,7 +115,7 @@ void Ball::reset(int screen_width, int screen_height)
     posX = screen_width/2;
     posY = starting_height;
 
-    velX = init_x_vel;
+    velX = init_x_vel * x_vel_sign_multiplier;
     velY = init_y_vel;
 
     isBallInPlay = true;
