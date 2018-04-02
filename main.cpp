@@ -128,6 +128,8 @@ int main()
             bool hasPointBeenWon = false;
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
+            int player1Score = 0;
+            int player2Score = 0;
 
 			//While application is running
 			while( !quit )
@@ -159,9 +161,19 @@ int main()
                     ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player2.getCollisionBox());
                 }
 
-                if(!ball.isBallInPlay)
+                if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
                     hasPointBeenWon = true;
+
+                    if(ball.getPosX() < 0)
+                    {
+                        player1Score++;
+                    }
+                    else
+                    {
+                        player2Score++;
+                    }
+                    printf("player1Score is: %d\nplayer2Score is: %d\n", player1Score, player2Score);
                 }
 
                 //Clear screen
