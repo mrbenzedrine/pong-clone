@@ -126,6 +126,8 @@ int main()
             Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
             bool hasPointBeenWon = false;
+            bool hasBreakTimerStarted = false;
+            Uint32 timeOfPointWin;
 
 			//While application is running
 			while( !quit )
@@ -171,23 +173,32 @@ int main()
                 player1.render(gRenderer);
                 player2.render(gRenderer);
 
-                ball.render(gRenderer);
+                if(!hasPointBeenWon)
+                {
+                    ball.render(gRenderer);
+                }
+                else
+                {
+                    if(!hasBreakTimerStarted)
+                    {
+                        // Get start time of the break between points
+                        timeOfPointWin = SDL_GetTicks();
+                        hasBreakTimerStarted = true;
+                    }
+                }
 
                 //Update screen
                 SDL_RenderPresent( gRenderer );
 
-                if(hasPointBeenWon)
+                if(hasBreakTimerStarted && (SDL_GetTicks() - timeOfPointWin > 2000))
                 {
-
                     // Reset the ball
                     ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-                    // Reset hasPointBeenWon
+                    // Reset hasPointBeenWon and hasBreakTimerStarted
                     hasPointBeenWon = false;
-
-
+                    hasBreakTimerStarted = false;
                 }
-
 			}
 		}
 	}
