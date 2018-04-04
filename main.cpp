@@ -5,6 +5,7 @@ have been made to create the code below
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "paddle.h"
 #include "ball.h"
@@ -19,6 +20,7 @@ void drawCentreLine();
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
+TTF_Font* font = NULL;
 
 bool init()
 {
@@ -54,6 +56,14 @@ bool init()
 				//Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
+                // Initialise SDL_ttf
+
+                if(TTF_Init() == -1)
+                {
+                    printf("Unable to initialise SDL_ttf, SDL_ttf error: %s\n", TTF_GetError());
+                    success = false;
+                }
+
 			}
 		}
 	}
@@ -76,7 +86,14 @@ bool loadMedia()
 	//Loading success flag
 	bool success = true;
 
-	//Nothing to load
+    font = TTF_OpenFont("lazy.ttf", 16);
+
+    if(font == NULL)
+    {
+        printf("Failed to load font! SDL_ttf error: %s\n", TTF_GetError());
+        success = false;
+    }
+
 	return success;
 }
 
