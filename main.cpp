@@ -184,11 +184,11 @@ int main()
 
                     if(ball.getPosX() < 0)
                     {
-                        player1Score++;
+                        player2Score++;
                     }
                     else
                     {
-                        player2Score++;
+                        player1Score++;
                     }
                     printf("player1Score is: %d\nplayer2Score is: %d\n", player1Score, player2Score);
                 }
