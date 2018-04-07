@@ -5,6 +5,8 @@ Score::Score()
 
     scoreValue = 0;
     textTexture = NULL;
+    imageWidth = 0;
+    imageHeight = 0;
 
 }
 
@@ -23,6 +25,8 @@ void Score::free()
         SDL_DestroyTexture(textTexture);
         textTexture = NULL;
         scoreValue = 0;
+        imageWidth = 0;
+        imageHeight = 0;
     }
 
 }
@@ -55,6 +59,11 @@ bool Score::createTextTexture(SDL_Renderer* renderer, TTF_Font* textFont, SDL_Co
         if(textTexture == NULL)
         {
             printf("Unable to create text texture. SDL error: %s\n", SDL_GetError());
+        }
+        else
+        {
+            imageWidth = textSurface->w;
+            imageHeight = textSurface->h;
         }
     }
 

@@ -16,5 +16,6 @@ class Score
     private:
         int scoreValue;
         SDL_Texture* textTexture;
+        int imageWidth, imageHeight;
 
 };
