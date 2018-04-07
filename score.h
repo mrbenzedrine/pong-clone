@@ -12,6 +12,7 @@ class Score
         void incrementScore(){scoreValue++;};
         int getScore() const {return scoreValue;};
         bool createTextTexture(SDL_Renderer*, TTF_Font*, SDL_Color);
+        void render(int, int, SDL_Renderer*);
 
     private:
         int scoreValue;

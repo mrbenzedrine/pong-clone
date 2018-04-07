@@ -72,3 +72,13 @@ bool Score::createTextTexture(SDL_Renderer* renderer, TTF_Font* textFont, SDL_Co
     return textTexture != NULL;
 
 }
+
+void Score::render(int x, int y, SDL_Renderer* renderer)
+{
+
+    // Set the portion of the window to render the score texture
+    SDL_Rect windowRenderArea = {x, y, imageWidth, imageHeight};
+
+    SDL_RenderCopy(renderer, textTexture, NULL, &windowRenderArea);
+
+}
