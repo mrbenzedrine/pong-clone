@@ -24,7 +24,6 @@ void Score::free()
     {
         SDL_DestroyTexture(textTexture);
         textTexture = NULL;
-        scoreValue = 0;
         imageWidth = 0;
         imageHeight = 0;
     }
