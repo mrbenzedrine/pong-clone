@@ -9,6 +9,7 @@ have been made to create the code below
 
 #include "paddle.h"
 #include "ball.h"
+#include "score.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -145,8 +146,8 @@ int main()
             bool hasPointBeenWon = false;
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
-            int player1Score = 0;
-            int player2Score = 0;
+            Score player1Score, player2Score;
+            SDL_Color textColour = {255, 255, 255};
 
 			//While application is running
 			while( !quit )
@@ -184,13 +185,12 @@ int main()
 
                     if(ball.getPosX() < 0)
                     {
-                        player2Score++;
+                        player2Score.incrementScore();
                     }
                     else
                     {
-                        player1Score++;
+                        player1Score.incrementScore();
                     }
-                    printf("player1Score is: %d\nplayer2Score is: %d\n", player1Score, player2Score);
                 }
 
                 //Clear screen
@@ -215,6 +215,14 @@ int main()
                         hasBreakTimerStarted = true;
                     }
                 }
+
+                if(!player1Score.createTextTexture(gRenderer, font, textColour) || !player2Score.createTextTexture(gRenderer, font, textColour))
+                {
+                    printf("Unable to render player score");
+                }
+
+                player1Score.render(20, 20, gRenderer);
+                player2Score.render(SCREEN_WIDTH - 20 - player2Score.getImageWidth(), 20, gRenderer);
 
                 //Update screen
                 SDL_RenderPresent( gRenderer );
