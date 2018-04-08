@@ -15,6 +15,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCORE_DISPLAY_X_OFFSET = 20;
 const int SCORE_DISPLAY_Y_OFFSET = 20;
+const int PADDLE_X_OFFSET = 10;
 
 bool init();
 void close();
@@ -140,8 +141,8 @@ int main()
 			//Event handler
 			SDL_Event e;
 
-            Paddle player1(10, SDLK_w, SDLK_s, SCREEN_HEIGHT);
-            Paddle player2(SCREEN_WIDTH - 10 - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
+            Paddle player1(PADDLE_X_OFFSET, SDLK_w, SDLK_s, SCREEN_HEIGHT);
+            Paddle player2(SCREEN_WIDTH - PADDLE_X_OFFSET - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
             Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
