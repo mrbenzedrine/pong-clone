@@ -13,6 +13,8 @@ have been made to create the code below
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+const int SCORE_DISPLAY_X_OFFSET = 20;
+const int SCORE_DISPLAY_Y_OFFSET = 20;
 
 bool init();
 void close();
@@ -221,8 +223,8 @@ int main()
                     printf("Unable to render player score");
                 }
 
-                player1Score.render(20, 20, gRenderer);
-                player2Score.render(SCREEN_WIDTH - 20 - player2Score.getImageWidth(), 20, gRenderer);
+                player1Score.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player2Score.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2Score.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
 
                 //Update screen
                 SDL_RenderPresent( gRenderer );
