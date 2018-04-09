@@ -25,6 +25,7 @@ void drawCentreLine();
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 TTF_Font* font = NULL;
+Score player1Score, player2Score;
 
 bool init()
 {
@@ -77,6 +78,9 @@ bool init()
 
 void close()
 {
+    player1Score.free();
+    player2Score.free();
+
     TTF_CloseFont(font);
     font = NULL;
 
@@ -153,7 +157,6 @@ int main()
             bool hasPointBeenWon = false;
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
-            Score player1Score, player2Score;
             SDL_Color textColour = {255, 255, 255};
 
 			//While application is running
