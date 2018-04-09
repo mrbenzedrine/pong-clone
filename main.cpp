@@ -77,11 +77,15 @@ bool init()
 
 void close()
 {
+    TTF_CloseFont(font);
+    font = NULL;
+
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
 
+    TTF_Quit();
 	SDL_Quit();
 }
 
