@@ -27,6 +27,7 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 TTF_Font* font = NULL;
 Score player1Score, player2Score;
+Mix_Chunk* winPointFX = NULL;
 
 bool init()
 {
@@ -87,6 +88,9 @@ bool init()
 
 void close()
 {
+    Mix_FreeChunk(winPointFX);
+    winPointFX = NULL;
+
     player1Score.free();
     player2Score.free();
 
@@ -114,6 +118,12 @@ bool loadMedia()
     {
         printf("Failed to load font! SDL_ttf error: %s\n", TTF_GetError());
         success = false;
+    }
+
+    winPointFX = Mix_LoadWAV("win_point.wav");
+    if(winPointFX == NULL)
+    {
+        printf("Unable to load win point sound effect, SDL_mixer error: %s\n", Mix_GetError());
     }
 
 	return success;
@@ -202,6 +212,8 @@ int main()
                 if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
                     hasPointBeenWon = true;
+
+                    Mix_PlayChannel(-1, winPointFX, 0);
 
                     if(ball.getPosX() < 0)
                     {
