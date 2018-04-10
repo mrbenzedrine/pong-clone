@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <cmath>
 
 class Ball
@@ -10,7 +11,7 @@ class Ball
 
         bool isBallInPlay;
 
-        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height);
+        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx);
 
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
@@ -23,5 +24,6 @@ class Ball
         float posX, posY;
         float velX, velY;
         SDL_Rect ballBox;
+        Mix_Chunk* paddleCollisionFX;
 
 };

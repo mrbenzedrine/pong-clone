@@ -1,6 +1,6 @@
 #include "ball.h"
 
-Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height)
+Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx)
 {
 
     posX = initPosX;
@@ -9,6 +9,7 @@ Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int s
     velY = initVelY;
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
     isBallInPlay = true;
+    paddleCollisionFX = paddle_collision_fx;
 
 }
 
@@ -43,6 +44,8 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
     // of the screen as the Ball
     if(checkCollision(player))
     {
+        Mix_PlayChannel(-1, paddleCollisionFX, 0);
+
         posX -= velX;
         posY -= velY;
 
