@@ -217,7 +217,7 @@ int main()
                 player1.move(SCREEN_HEIGHT);
                 player2.move(SCREEN_HEIGHT);
 
-                if(ball.isBallInPlay)
+                if(ball.getIsInPlay())
                 {
                     if(ball.getPosX() < SCREEN_WIDTH/2)
                     {
@@ -230,7 +230,7 @@ int main()
 
                 }
 
-                if(!ball.isBallInPlay && !hasBreakTimerStarted)
+                if(!ball.getIsInPlay() && !hasBreakTimerStarted)
                 {
                     Mix_PlayChannel(-1, winPointFX, 0);
 
@@ -253,11 +253,11 @@ int main()
                 player1.render(gRenderer);
                 player2.render(gRenderer);
 
-                if(ball.isBallInPlay)
+                if(ball.getIsInPlay())
                 {
                     ball.render(gRenderer);
                 }
-                else if(!ball.isBallInPlay && !hasBreakTimerStarted)
+                else if(!ball.getIsInPlay() && !hasBreakTimerStarted)
                 {
                     // Get start time of the break between points
                     timeOfPointWin = SDL_GetTicks();

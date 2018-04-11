@@ -8,7 +8,7 @@ Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int s
     velX = initVelX;
     velY = initVelY;
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
-    isBallInPlay = true;
+    isInPlay = true;
     paddleCollisionFX = paddle_collision_fx;
     wallCollisionFX = wall_collision_fx;
 
@@ -21,11 +21,11 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
 
     if(posX < 0)
     {
-        isBallInPlay = false;
+        isInPlay = false;
     }
     else if(posX > screen_width - BALL_WIDTH)
     {
-        isBallInPlay = false;
+        isInPlay = false;
     }
 
     posY += velY;
@@ -124,7 +124,7 @@ void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
     velX = init_x_vel * x_vel_sign_multiplier;
     velY = init_y_vel;
 
-    isBallInPlay = true;
+    isInPlay = true;
 
 }
 
