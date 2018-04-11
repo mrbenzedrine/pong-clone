@@ -1,6 +1,6 @@
 #include "ball.h"
 
-Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx)
+Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
 {
 
     posX = initPosX;
@@ -10,6 +10,7 @@ Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int s
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
     isBallInPlay = true;
     paddleCollisionFX = paddle_collision_fx;
+    wallCollisionFX = wall_collision_fx;
 
 }
 
@@ -31,6 +32,8 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
 
     if(posY < 0 || posY > screen_height - BALL_HEIGHT)
     {
+        Mix_PlayChannel(-1, wallCollisionFX, 0);
+
         // Move the ball back, and reverse the sign of the
         // y velocity component to make the ball 'bounce'
         // off the bottom/top of the window

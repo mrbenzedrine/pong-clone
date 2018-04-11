@@ -11,7 +11,7 @@ class Ball
 
         bool isBallInPlay;
 
-        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx);
+        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
 
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
@@ -25,5 +25,6 @@ class Ball
         float velX, velY;
         SDL_Rect ballBox;
         Mix_Chunk* paddleCollisionFX;
+        Mix_Chunk* wallCollisionFX;
 
 };

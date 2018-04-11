@@ -29,6 +29,7 @@ TTF_Font* font = NULL;
 Score player1Score, player2Score;
 Mix_Chunk* winPointFX = NULL;
 Mix_Chunk* paddleCollisionFX = NULL;
+Mix_Chunk* wallCollisionFX = NULL;
 
 bool init()
 {
@@ -91,8 +92,10 @@ void close()
 {
     Mix_FreeChunk(winPointFX);
     Mix_FreeChunk(paddleCollisionFX);
+    Mix_FreeChunk(wallCollisionFX);
     winPointFX = NULL;
     paddleCollisionFX = NULL;
+    wallCollisionFX = NULL;
 
     player1Score.free();
     player2Score.free();
@@ -133,6 +136,12 @@ bool loadMedia()
     if(paddleCollisionFX == NULL)
     {
         printf("Unable to load paddle collision sound effect, SDL_mixer error: %s\n", Mix_GetError());
+    }
+
+    wallCollisionFX = Mix_LoadWAV("wall_collision.wav");
+    if(wallCollisionFX == NULL)
+    {
+        printf("Unable to load wall collision sound effect, SDL_mixer error: %s\n", Mix_GetError());
     }
 
 	return success;
@@ -181,7 +190,7 @@ int main()
             Paddle player1(PADDLE_X_OFFSET, SDLK_w, SDLK_s, SCREEN_HEIGHT);
             Paddle player2(SCREEN_WIDTH - PADDLE_X_OFFSET - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
-            Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX);
+            Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
 
             bool hasPointBeenWon = false;
             bool hasBreakTimerStarted = false;
