@@ -218,16 +218,19 @@ int main()
                 player1.move(SCREEN_HEIGHT);
                 player2.move(SCREEN_HEIGHT);
 
-                if(ball.getPosX() < SCREEN_WIDTH/2)
+                if(ball.isBallInPlay)
                 {
-                    ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox());
-                }
-                else
-                {
-                    ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player2.getCollisionBox());
-                }
+                    if(ball.getPosX() < SCREEN_WIDTH/2)
+                    {
+                        ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player1.getCollisionBox());
+                    }
+                    else
+                    {
+                        ball.move(SCREEN_WIDTH, SCREEN_HEIGHT, player2.getCollisionBox());
+                    }
 
-                if(!ball.isBallInPlay && !hasBreakTimerStarted)
+                }
+                else if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
                     hasPointBeenWon = true;
 
