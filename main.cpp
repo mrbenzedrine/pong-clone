@@ -192,7 +192,6 @@ int main()
 
             Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
 
-            bool hasPointBeenWon = false;
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
             SDL_Color textColour = {255, 255, 255};
@@ -232,8 +231,6 @@ int main()
                 }
                 else if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
-                    hasPointBeenWon = true;
-
                     Mix_PlayChannel(-1, winPointFX, 0);
 
                     if(ball.getPosX() < 0)
@@ -255,18 +252,15 @@ int main()
                 player1.render(gRenderer);
                 player2.render(gRenderer);
 
-                if(!hasPointBeenWon)
+                if(ball.isBallInPlay)
                 {
                     ball.render(gRenderer);
                 }
-                else
+                else if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
-                    if(!hasBreakTimerStarted)
-                    {
-                        // Get start time of the break between points
-                        timeOfPointWin = SDL_GetTicks();
-                        hasBreakTimerStarted = true;
-                    }
+                    // Get start time of the break between points
+                    timeOfPointWin = SDL_GetTicks();
+                    hasBreakTimerStarted = true;
                 }
 
                 if(!player1Score.createTextTexture(gRenderer, font, textColour) || !player2Score.createTextTexture(gRenderer, font, textColour))
@@ -291,8 +285,7 @@ int main()
                         ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, 1);
                     }
 
-                    // Reset hasPointBeenWon and hasBreakTimerStarted
-                    hasPointBeenWon = false;
+                    // Reset hasBreakTimerStarted
                     hasBreakTimerStarted = false;
                 }
 			}
