@@ -229,7 +229,8 @@ int main()
                     }
 
                 }
-                else if(!ball.isBallInPlay && !hasBreakTimerStarted)
+
+                if(!ball.isBallInPlay && !hasBreakTimerStarted)
                 {
                     Mix_PlayChannel(-1, winPointFX, 0);
 
