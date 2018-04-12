@@ -53,6 +53,9 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
         posY -= velY;
 
         calculateVelocityAfterPaddleCollision(screen_width, player);
+
+        posX += velX;
+        posY += velY;
     }
 
     // Update ballBox
