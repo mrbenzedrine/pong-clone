@@ -11,6 +11,7 @@ Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int s
     isInPlay = true;
     paddleCollisionFX = paddle_collision_fx;
     wallCollisionFX = wall_collision_fx;
+    timeOfCollision = 0;
 
 }
 
@@ -45,8 +46,10 @@ void Ball::move(int screen_width, int screen_height, SDL_Rect player)
     // Check if the collective movements in this frame have
     // caused a collision with the Paddle in the same half
     // of the screen as the Ball
-    if(checkCollision(player))
+    if(checkCollision(player) && (SDL_GetTicks() - timeOfCollision > 1000))
     {
+        timeOfCollision = SDL_GetTicks();
+
         Mix_PlayChannel(-1, paddleCollisionFX, 0);
 
         posX -= velX;

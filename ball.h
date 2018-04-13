@@ -26,5 +26,6 @@ class Ball
         SDL_Rect ballBox;
         Mix_Chunk* paddleCollisionFX;
         Mix_Chunk* wallCollisionFX;
+        Uint32 timeOfCollision;
 
 };
