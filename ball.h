@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <cmath>
+#include <stdexcept>
 
 class Ball
 {
@@ -29,3 +30,5 @@ class Ball
         Uint32 timeOfCollision;
 
 };
+
+int nrand(int, int);

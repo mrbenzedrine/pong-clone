@@ -120,7 +120,7 @@ bool Ball::checkCollision(SDL_Rect player)
 void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
 {
 
-    int starting_height = screen_height/2;
+    int starting_height = nrand(40, screen_height - 40);
     float init_x_vel = 1;
     float init_y_vel = 1;
 
@@ -177,5 +177,24 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
         // x velocity should be negative after collision
         velX = -sin(bounce_angle);
     }
+
+}
+
+// Generates a pseudo-random integer in the interval [m, n)
+int nrand(int m, int n)
+{
+
+    if(m <= 0 || n > RAND_MAX)
+    {
+        throw std::domain_error("Arguments(s) of nrand are out of range");
+    }
+
+    const int bucket_size = RAND_MAX / (n-m);
+    int r;
+
+    do r = rand() / bucket_size;
+    while (r >= (n-m));
+
+    return r + m;
 
 }
