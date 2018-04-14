@@ -121,8 +121,12 @@ void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
 {
 
     int starting_height = nrand(40, screen_height - 40);
-    float init_x_vel = 1;
-    float init_y_vel = 1;
+
+    // Limit the Ball's angle to the centre line to be from 45 to 135 degrees
+
+    float ball_angle = nrand(45, 136) * (M_PI/180);
+    float init_x_vel = sin(ball_angle);
+    float init_y_vel = cos(ball_angle);
 
     posX = screen_width/2;
     posY = starting_height;
