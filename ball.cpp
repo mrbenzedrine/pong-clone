@@ -1,12 +1,14 @@
 #include "ball.h"
 
-Ball::Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
+Ball::Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
 {
 
-    posX = initPosX;
-    posY = initPosY;
-    velX = initVelX;
-    velY = initVelY;
+    float ball_angle = nrand(45, 136) * (M_PI/180);
+
+    posX = screen_width/2;
+    posY = nrand(40, screen_height - 40);
+    velX = -sin(ball_angle);
+    velY = cos(ball_angle);
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
     isInPlay = true;
     paddleCollisionFX = paddle_collision_fx;

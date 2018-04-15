@@ -10,7 +10,7 @@ class Ball
         static const int BALL_WIDTH = 6;
         static const int BALL_HEIGHT = 6;
 
-        Ball(float initPosX, float initPosY, float initVelX, float initVelY, int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
+        Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
 
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);

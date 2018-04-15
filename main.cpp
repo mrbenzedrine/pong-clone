@@ -190,11 +190,7 @@ int main()
             Paddle player1(PADDLE_X_OFFSET, SDLK_w, SDLK_s, SCREEN_HEIGHT);
             Paddle player2(SCREEN_WIDTH - PADDLE_X_OFFSET - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
-            int initBallHeight = nrand(40, SCREEN_HEIGHT - 40);
-            float initBallAngle = nrand(45, 136) * (M_PI/180);
-            float initBallXVel = -sin(initBallAngle);
-            float initBallYVel = cos(initBallAngle);
-            Ball ball(SCREEN_WIDTH/2, initBallHeight, initBallXVel, initBallYVel, SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
+            Ball ball(SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
 
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
