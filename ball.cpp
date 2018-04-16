@@ -3,10 +3,10 @@
 Ball::Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
 {
 
-    float ball_angle = nrand(45, 136) * (M_PI/180);
+    float ball_angle = nrand(ANGLE_LOWER_BOUND, ANGLE_UPPER_BOUND + 1) * (M_PI/180);
 
     posX = screen_width/2;
-    posY = nrand(40, screen_height - 40);
+    posY = nrand(Y_POS_RESET_CUTOFF, screen_height - Y_POS_RESET_CUTOFF);
     velX = -sin(ball_angle);
     velY = cos(ball_angle);
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
@@ -122,11 +122,9 @@ bool Ball::checkCollision(SDL_Rect player)
 void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
 {
 
-    int starting_height = nrand(40, screen_height - 40);
+    int starting_height = nrand(Y_POS_RESET_CUTOFF, screen_height - Y_POS_RESET_CUTOFF);
 
-    // Limit the Ball's angle to the centre line to be from 45 to 135 degrees
-
-    float ball_angle = nrand(45, 136) * (M_PI/180);
+    float ball_angle = nrand(ANGLE_LOWER_BOUND, ANGLE_UPPER_BOUND + 1) * (M_PI/180);
     float init_x_vel = sin(ball_angle);
     float init_y_vel = cos(ball_angle);
 
