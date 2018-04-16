@@ -3,14 +3,9 @@
 Ball::Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
 {
 
-    float ball_angle = nrand(ANGLE_LOWER_BOUND, ANGLE_UPPER_BOUND + 1) * (M_PI/180);
+    reset(screen_width, screen_height, -1);
 
-    posX = screen_width/2;
-    posY = nrand(Y_POS_RESET_CUTOFF, screen_height - Y_POS_RESET_CUTOFF);
-    velX = -sin(ball_angle);
-    velY = cos(ball_angle);
     ballBox = {posX, posY, BALL_WIDTH, BALL_HEIGHT};
-    isInPlay = true;
     paddleCollisionFX = paddle_collision_fx;
     wallCollisionFX = wall_collision_fx;
     timeOfCollision = 0;
