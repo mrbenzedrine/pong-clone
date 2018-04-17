@@ -148,7 +148,9 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
     // at the centre of the Paddle the bounce angle will be
     // 90 degress relative to the Paddle, and for every
     // pixel up/down from the centre the angle will
-    // decrease by 4 degrees
+    // decrease by angle_step degrees
+
+    const int angle_step = 4;
 
     if(collision_y_coord < player.h/2)
     {
@@ -157,7 +159,7 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
             collision_y_coord = 0.0;
         }
 
-        bounce_angle = (M_PI/180) * (90 - 4 * (player.h/2 - collision_y_coord));
+        bounce_angle = (M_PI/180) * (90 - angle_step * (player.h/2 - collision_y_coord));
 
         // Sign of y velocity will be negative
         velY = -cos(bounce_angle);
@@ -170,7 +172,7 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
             collision_y_coord = player.h;
         }
 
-        bounce_angle = (M_PI/180) * (90 - 4 * (collision_y_coord - player.h/2));
+        bounce_angle = (M_PI/180) * (90 - angle_step * (collision_y_coord - player.h/2));
 
         // Sign of y velocity will be positive
         velY = cos(bounce_angle);
