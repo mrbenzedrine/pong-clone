@@ -152,6 +152,11 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
 
     if(collision_y_coord < player.h/2)
     {
+        if(collision_y_coord < 0)
+        {
+            collision_y_coord = 0.0;
+        }
+
         bounce_angle = (M_PI/180) * (90 - 4 * (player.h/2 - collision_y_coord));
 
         // Sign of y velocity will be negative
@@ -160,6 +165,11 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
     }
     else
     {
+        if(collision_y_coord > player.h)
+        {
+            collision_y_coord = player.h;
+        }
+
         bounce_angle = (M_PI/180) * (90 - 4 * (collision_y_coord - player.h/2));
 
         // Sign of y velocity will be positive
