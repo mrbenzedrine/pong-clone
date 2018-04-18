@@ -17,9 +17,7 @@ class Ball
 
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
-        bool checkCollision(SDL_Rect player);
         void reset(int screen_width, int screen_height, int x_vel_sign_multiplier);
-        void calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect);
         float getPosX() const {return posX;};
         bool getIsInPlay() const {return isInPlay;};
 
@@ -31,6 +29,9 @@ class Ball
         Mix_Chunk* paddleCollisionFX;
         Mix_Chunk* wallCollisionFX;
         Uint32 timeOfCollision;
+
+        bool checkCollision(SDL_Rect player);
+        void calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect);
 
 };
 
