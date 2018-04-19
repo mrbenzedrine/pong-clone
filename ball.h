@@ -7,12 +7,6 @@ class Ball
 {
 
     public:
-        static const int BALL_WIDTH = 6;
-        static const int BALL_HEIGHT = 6;
-        static const int ANGLE_LOWER_BOUND = 45;
-        static const int ANGLE_UPPER_BOUND = 135;
-        static const int Y_POS_RESET_CUTOFF = 40;
-
         Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
 
         void move(int screen_width, int screen_height, SDL_Rect player);
@@ -22,6 +16,12 @@ class Ball
         bool getIsInPlay() const {return isInPlay;};
 
     private:
+        static const int BALL_WIDTH = 6;
+        static const int BALL_HEIGHT = 6;
+        static const int ANGLE_LOWER_BOUND = 45;
+        static const int ANGLE_UPPER_BOUND = 135;
+        static const int Y_POS_RESET_CUTOFF = 40;
+
         float posX, posY;
         float velX, velY;
         bool isInPlay;
