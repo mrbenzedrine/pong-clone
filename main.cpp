@@ -192,7 +192,7 @@ int main()
             Ball ball(SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
 
             std::string introScreenText = "Press enter to begin";
-            TextTexture introScreenTextTexture(introScreenText);
+            TextTexture<std::string> introScreenTextTexture(introScreenText);
             SDL_Color textColour = {255, 255, 255};
 
             introScreenTextTexture.createTextTexture(gRenderer, font, textColour);
