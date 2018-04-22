@@ -12,6 +12,29 @@ Ball::Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, 
 
 }
 
+void Ball::introMove(int screen_width, int screen_height)
+{
+    posX += velX;
+
+    if(posX < 0 || posX > screen_width - BALL_WIDTH)
+    {
+        posX -= velX;
+        velX *= -1;
+    }
+
+    posY += velY;
+
+    if(posY < 0 || posY > screen_height - BALL_HEIGHT)
+    {
+        posY -= velY;
+        velY *= -1;
+    }
+
+    ballBox.x = posX;
+    ballBox.y = posY;
+
+}
+
 void Ball::move(int screen_width, int screen_height, SDL_Rect player)
 {
 

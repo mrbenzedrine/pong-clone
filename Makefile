@@ -1,5 +1,5 @@
 CC = g++
-SOURCES = main.cpp paddle.cpp ball.cpp score.cpp
+SOURCES = main.cpp paddle.cpp ball.cpp score.cpp text_texture.cpp
 LFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_mixer
 EXE_NAME = pong
 $(EXE_NAME): $(SOURCES)

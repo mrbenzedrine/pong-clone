@@ -9,6 +9,7 @@ class Ball
     public:
         Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
 
+        void introMove(int screen_width, int screen_height);
         void move(int screen_width, int screen_height, SDL_Rect player);
         void render(SDL_Renderer* renderer);
         void reset(int screen_width, int screen_height, int x_vel_sign_multiplier);

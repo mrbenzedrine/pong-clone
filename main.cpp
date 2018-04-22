@@ -11,6 +11,7 @@ have been made to create the code below
 #include "paddle.h"
 #include "ball.h"
 #include "score.h"
+#include "text_texture.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -183,18 +184,71 @@ int main()
 		{	
 			//Main loop flag
 			bool quit = false;
+            bool exit_intro = false;
 
 			//Event handler
 			SDL_Event e;
 
+            Ball ball(SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
+
+            std::string introScreenText = "Press enter to begin";
+            TextTexture introScreenTextTexture(introScreenText);
+            SDL_Color textColour = {255, 255, 255};
+
+            introScreenTextTexture.createTextTexture(gRenderer, font, textColour);
+
+            // Intro screen
+            while(!quit && !exit_intro)
+            {
+                while(SDL_PollEvent(&e) != 0)
+                {
+
+                    if(e.type == SDL_QUIT)
+                    {
+                        quit = true;
+                    }
+
+                    const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+
+                    // Check if the user has pressed the enter key to start
+                    // the game
+                    if(currentKeyStates[SDL_SCANCODE_RETURN])
+                    {
+                        exit_intro = true;
+                    }
+                }
+
+                ball.introMove(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+                SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+                SDL_RenderClear(gRenderer);
+
+                introScreenTextTexture.render(SCREEN_WIDTH/2 - introScreenTextTexture.getImageWidth()/2, SCREEN_HEIGHT/2, gRenderer);
+
+                drawCentreLine();
+
+                ball.render(gRenderer);
+
+                if(!player1Score.createTextTexture(gRenderer, font, textColour) || !player2Score.createTextTexture(gRenderer, font, textColour))
+                {
+                    printf("Unable to render player score");
+                }
+
+                player1Score.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player2Score.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2Score.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
+
+                SDL_RenderPresent(gRenderer);
+
+            }
+
+            // Reset the Ball
+            ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, -1);
+
             Paddle player1(PADDLE_X_OFFSET, SDLK_w, SDLK_s, SCREEN_HEIGHT);
             Paddle player2(SCREEN_WIDTH - PADDLE_X_OFFSET - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
-            Ball ball(SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
-
             bool hasBreakTimerStarted = false;
             Uint32 timeOfPointWin;
-            SDL_Color textColour = {255, 255, 255};
 
 			//While application is running
 			while( !quit )
