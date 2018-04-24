@@ -27,7 +27,7 @@ void drawCentreLine();
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 TTF_Font* font = NULL;
-Score player1Score, player2Score;
+TextTexture<int> player1ScoreTexture(0), player2ScoreTexture(0);
 Mix_Chunk* winPointFX = NULL;
 Mix_Chunk* paddleCollisionFX = NULL;
 Mix_Chunk* wallCollisionFX = NULL;
@@ -98,8 +98,8 @@ void close()
     paddleCollisionFX = NULL;
     wallCollisionFX = NULL;
 
-    player1Score.free();
-    player2Score.free();
+    player1ScoreTexture.free();
+    player2ScoreTexture.free();
 
     TTF_CloseFont(font);
     font = NULL;
@@ -190,6 +190,8 @@ int main()
 			SDL_Event e;
 
             Ball ball(SCREEN_WIDTH, SCREEN_HEIGHT, paddleCollisionFX, wallCollisionFX);
+            int player1Score = 0;
+            int player2Score = 0;
 
             std::string introScreenText = "Press enter to begin";
             TextTexture<std::string> introScreenTextTexture(introScreenText);
@@ -229,13 +231,13 @@ int main()
 
                 ball.render(gRenderer);
 
-                if(!player1Score.createTextTexture(gRenderer, font, textColour) || !player2Score.createTextTexture(gRenderer, font, textColour))
+                if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour) || !player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
                 {
                     printf("Unable to render player score");
                 }
 
-                player1Score.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
-                player2Score.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2Score.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player1ScoreTexture.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player2ScoreTexture.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2ScoreTexture.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
 
                 SDL_RenderPresent(gRenderer);
 
@@ -290,11 +292,13 @@ int main()
 
                     if(ball.getPosX() < 0)
                     {
-                        player2Score.incrementScore();
+                        ++player2Score;
+                        player2ScoreTexture.setValueToRender(player2Score);
                     }
                     else
                     {
-                        player1Score.incrementScore();
+                        ++player1Score;
+                        player1ScoreTexture.setValueToRender(player1Score);
                     }
                 }
 
@@ -318,13 +322,13 @@ int main()
                     hasBreakTimerStarted = true;
                 }
 
-                if(!player1Score.createTextTexture(gRenderer, font, textColour) || !player2Score.createTextTexture(gRenderer, font, textColour))
+                if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour) || !player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
                 {
                     printf("Unable to render player score");
                 }
 
-                player1Score.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
-                player2Score.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2Score.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player1ScoreTexture.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
+                player2ScoreTexture.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2ScoreTexture.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
 
                 //Update screen
                 SDL_RenderPresent( gRenderer );
