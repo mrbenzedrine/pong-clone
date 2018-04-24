@@ -13,6 +13,7 @@ template <class T> class TextTexture
         bool createTextTexture(SDL_Renderer*, TTF_Font*, SDL_Color);
         void render(int, int, SDL_Renderer*);
         int getImageWidth() const {return imageWidth;};
+        void setValueToRender(T value){valueToRender = value;};
 
     private:
         int imageWidth, imageHeight;
