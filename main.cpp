@@ -10,7 +10,6 @@ have been made to create the code below
 
 #include "paddle.h"
 #include "ball.h"
-#include "score.h"
 #include "text_texture.h"
 
 const int SCREEN_WIDTH = 640;
