@@ -242,14 +242,12 @@ int main()
 
             }
 
-            // Reset the Ball
-            ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, -1);
-
             Paddle player1(PADDLE_X_OFFSET, SDLK_w, SDLK_s, SCREEN_HEIGHT);
             Paddle player2(SCREEN_WIDTH - PADDLE_X_OFFSET - Paddle::PADDLE_WIDTH, SDLK_UP, SDLK_DOWN, SCREEN_HEIGHT);
 
-            bool hasBreakTimerStarted = false;
-            Uint32 timeOfPointWin;
+            bool hasBreakTimerStarted = true;
+            Uint32 timeOfPointWin = SDL_GetTicks();
+            ball.setIsInPlay(false);
 
 			//While application is running
 			while( !quit )
@@ -338,9 +336,16 @@ int main()
                     {
                         ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, -1);
                     }
-                    else
+                    else if(ball.getPosX() > SCREEN_WIDTH - Ball::BALL_WIDTH)
                     {
                         ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+                    }
+                    else
+                    {
+                        // Then the user has just exited out of the intro screen
+                        // and the game has only begun, so the Ball should go
+                        // towards player 1
+                        ball.reset(SCREEN_WIDTH, SCREEN_HEIGHT, -1);
                     }
 
                     // Reset hasBreakTimerStarted
