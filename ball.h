@@ -1,3 +1,8 @@
+/* This piece of code was originally from Lazy Foo' Productions,
+and has been used as the foundation to which changes and additions
+have been made to create the code below
+(http://lazyfoo.net/) */
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <cmath>

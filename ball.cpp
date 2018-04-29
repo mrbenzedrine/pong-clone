@@ -1,3 +1,8 @@
+/* This piece of code was originally from Lazy Foo' Productions,
+and has been used as the foundation to which changes and additions
+have been made to create the code below
+(http://lazyfoo.net/) */
+
 #include "ball.h"
 
 Ball::Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx)
