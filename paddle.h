@@ -10,7 +10,7 @@ class Paddle
     public:
         static const int PADDLE_HEIGHT = 30;
         static const int PADDLE_WIDTH = 8;
-        static const int PADDLE_VEL = 1;
+        static const int PADDLE_VEL = 5;
 
         Paddle(int x, SDL_Keycode up, SDL_Keycode down, int screen_height);
 

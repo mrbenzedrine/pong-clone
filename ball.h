@@ -14,6 +14,7 @@ class Ball
     public:
         static const int BALL_WIDTH = 6;
         static const int BALL_HEIGHT = 6;
+        static const int BALL_SPEED = 5;
 
         Ball(int screen_width, int screen_height, Mix_Chunk* paddle_collision_fx, Mix_Chunk* wall_collision_fx);
 

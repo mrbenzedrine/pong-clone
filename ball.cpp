@@ -148,8 +148,8 @@ void Ball::reset(int screen_width, int screen_height, int x_vel_sign_multiplier)
     int starting_height = nrand(Y_POS_RESET_CUTOFF, screen_height - Y_POS_RESET_CUTOFF);
 
     float ball_angle = nrand(ANGLE_LOWER_BOUND, ANGLE_UPPER_BOUND + 1) * (M_PI/180);
-    float init_x_vel = sin(ball_angle);
-    float init_y_vel = cos(ball_angle);
+    float init_x_vel = BALL_SPEED * sin(ball_angle);
+    float init_y_vel = BALL_SPEED * cos(ball_angle);
 
     posX = screen_width/2;
     posY = starting_height;
@@ -190,7 +190,7 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
         bounce_angle = (M_PI/180) * (90 - angle_step * (player.h/2 - collision_y_coord));
 
         // Sign of y velocity will be negative
-        velY = -cos(bounce_angle);
+        velY = -BALL_SPEED * cos(bounce_angle);
 
     }
     else
@@ -203,18 +203,18 @@ void Ball::calculateVelocityAfterPaddleCollision(int screen_width, SDL_Rect play
         bounce_angle = (M_PI/180) * (90 - angle_step * (collision_y_coord - player.h/2));
 
         // Sign of y velocity will be positive
-        velY = cos(bounce_angle);
+        velY = BALL_SPEED * cos(bounce_angle);
     }
 
     if(posX < screen_width/2)
     {
         // x velocity should be positive after collision
-        velX = sin(bounce_angle);
+        velX = BALL_SPEED * sin(bounce_angle);
     }
     else
     {
         // x velocity should be negative after collision
-        velX = -sin(bounce_angle);
+        velX = -BALL_SPEED * sin(bounce_angle);
     }
 
 }
