@@ -27,6 +27,8 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 TTF_Font* font = NULL;
 TextTexture<int> player1ScoreTexture(0), player2ScoreTexture(0);
+std::string fontAcknowledgementText = "Font used is 'Lazy Font' and is copyrighted by Lazy Foo' Productions";
+TextTexture<std::string> fontAcknowledgementTextTexture(fontAcknowledgementText);
 Mix_Chunk* winPointFX = NULL;
 Mix_Chunk* paddleCollisionFX = NULL;
 Mix_Chunk* wallCollisionFX = NULL;
@@ -197,6 +199,7 @@ int main()
             SDL_Color textColour = {255, 255, 255};
 
             introScreenTextTexture.createTextTexture(gRenderer, font, textColour);
+            fontAcknowledgementTextTexture.createTextTexture(gRenderer, font, textColour);
 
             // Intro screen
             while(!quit && !exit_intro)
@@ -219,12 +222,14 @@ int main()
                     }
                 }
 
+
                 ball.introMove(SCREEN_WIDTH, SCREEN_HEIGHT);
 
                 SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
                 SDL_RenderClear(gRenderer);
 
                 introScreenTextTexture.render(SCREEN_WIDTH/2 - introScreenTextTexture.getImageWidth()/2, SCREEN_HEIGHT/2, gRenderer);
+                fontAcknowledgementTextTexture.render(SCREEN_WIDTH/2 - fontAcknowledgementTextTexture.getImageWidth()/2, SCORE_DISPLAY_Y_OFFSET, gRenderer);
 
                 drawCentreLine();
 
@@ -351,6 +356,7 @@ int main()
                     // Reset hasBreakTimerStarted
                     hasBreakTimerStarted = false;
                 }
+
 			}
 		}
 	}
