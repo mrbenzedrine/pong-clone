@@ -7,6 +7,7 @@ have been made to create the code below
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
+#include <ctime>
 
 #include "paddle.h"
 #include "ball.h"
@@ -169,6 +170,8 @@ void drawCentreLine()
 
 int main()
 {
+    srand(time(NULL));
+
 	//Start up SDL and create window
 	if( !init() )
 	{
