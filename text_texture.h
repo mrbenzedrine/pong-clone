@@ -11,6 +11,7 @@ have been made to create the code below
 template <class T> class TextTexture
 {
     public:
+        TextTexture():imageWidth(0), imageHeight(0), textTexture(NULL){};
         TextTexture(T);
         ~TextTexture(){free();};
 
