@@ -204,6 +204,16 @@ int main()
             introScreenTextTexture.createTextTexture(gRenderer, font, textColour);
             fontAcknowledgementTextTexture.createTextTexture(gRenderer, font, textColour);
 
+            if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour))
+            {
+                printf("Unable to render player1 score");
+            }
+
+            if(!player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
+            {
+                printf("Unable to render player2 score");
+            }
+
             // Intro screen
             while(!quit && !exit_intro)
             {
@@ -237,11 +247,6 @@ int main()
                 drawCentreLine();
 
                 ball.render(gRenderer);
-
-                if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour) || !player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
-                {
-                    printf("Unable to render player score");
-                }
 
                 player1ScoreTexture.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
                 player2ScoreTexture.render(SCREEN_WIDTH - SCORE_DISPLAY_X_OFFSET - player2ScoreTexture.getImageWidth(), SCORE_DISPLAY_Y_OFFSET, gRenderer);
