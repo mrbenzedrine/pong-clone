@@ -299,11 +299,19 @@ int main()
                     {
                         ++player2Score;
                         player2ScoreTexture.setValueToRender(player2Score);
+                        if(!player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
+                        {
+                            printf("Unable to render player2 score");
+                        }
                     }
                     else
                     {
                         ++player1Score;
                         player1ScoreTexture.setValueToRender(player1Score);
+                        if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour))
+                        {
+                            printf("Unable to render player1 score");
+                        }
                     }
                 }
 
@@ -325,11 +333,6 @@ int main()
                     // Get start time of the break between points
                     timeOfPointWin = SDL_GetTicks();
                     hasBreakTimerStarted = true;
-                }
-
-                if(!player1ScoreTexture.createTextTexture(gRenderer, font, textColour) || !player2ScoreTexture.createTextTexture(gRenderer, font, textColour))
-                {
-                    printf("Unable to render player score");
                 }
 
                 player1ScoreTexture.render(SCORE_DISPLAY_X_OFFSET, SCORE_DISPLAY_Y_OFFSET, gRenderer);
